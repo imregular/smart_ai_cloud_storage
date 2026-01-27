@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  auth_service:
+    build: ./backend/auth_service
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./backend/auth_service:/app
+    restart: always
+
+  upload_service:
+    build: ./backend/upload_service
+    ports:
+      - "8002:8001"
+    volumes:
+      - ./backend/upload_service:/app
+      - ./uploads:/uploads
+    restart: always
+
+  search_service:
+    build: ./backend/search_service
+    ports:
+      - "8003:8001"
+    volumes:
+      - ./backend/search_service:/app
+    restart: always
+
+  ai_service:
+    build: ./backend/ai_service
+    ports:
+      - "8004:8001"
+    volumes:
+      - ./backend/ai_service:/app
+    restart: always
+
+

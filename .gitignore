@@ -1,0 +1,43 @@
+# --------------------
+# ENV FILES
+# --------------------
+.env
+.env.*
+!.env.example
+
+# --------------------
+# PYTHON
+# --------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# --------------------
+# NODE / FRONTEND
+# --------------------
+node_modules/
+dist/
+build/
+.vite/
+
+# --------------------
+# DOCKER
+# --------------------
+*.log
+docker-data/
+
+# --------------------
+# OS / EDITOR
+# --------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --------------------
+# UPLOADS (runtime files)
+# --------------------
+uploads/
