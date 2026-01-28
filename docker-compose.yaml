@@ -4,34 +4,54 @@ services:
   auth_service:
     build: ./backend/auth_service
     ports:
-      - "8001:8001"
+      - "8001:8000"          # map container 8000 to host 8001
     volumes:
       - ./backend/auth_service:/app
+    depends_on:
+      - db
     restart: always
 
   upload_service:
     build: ./backend/upload_service
     ports:
-      - "8002:8001"
+      - "8002:8000"
     volumes:
       - ./backend/upload_service:/app
       - ./uploads:/uploads
+    depends_on:
+      - db
     restart: always
 
   search_service:
     build: ./backend/search_service
     ports:
-      - "8003:8001"
+      - "8003:8000"
     volumes:
       - ./backend/search_service:/app
+    depends_on:
+      - db
     restart: always
 
   ai_service:
     build: ./backend/ai_service
     ports:
-      - "8004:8001"
+      - "8004:8000"
     volumes:
       - ./backend/ai_service:/app
+    depends_on:
+      - db
     restart: always
 
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
+volumes:
+  postgres_data:
