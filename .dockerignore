@@ -1,0 +1,31 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore build outputs
+dist/
+build/
+
+# Ignore logs
+*.log
+npm-debug.log*
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore Prisma generated files (will be regenerated)
+backend/auth_service/node_modules/@prisma/client/
+
+# Ignore test coverage
+coverage/

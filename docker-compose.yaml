@@ -4,9 +4,15 @@ services:
   auth_service:
     build: ./backend/auth_service
     ports:
-      - "8001:8000"          # map container 8000 to host 8001
+      - "8001:8000" # map container 8000 to host 8001
     volumes:
       - ./backend/auth_service:/app
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://neondb_owner:npg_Wge7Yjlq5owZ@ep-frosty-meadow-aho4wo4u-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require
+      - JWT_SECRET=your-secret-key-change-in-production-please-use-strong-random-string
+      - PORT=8000
+      - NODE_ENV=development
     depends_on:
       - db
     restart: always

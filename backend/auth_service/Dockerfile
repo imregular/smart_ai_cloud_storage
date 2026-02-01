@@ -1,14 +1,26 @@
-FROM python:3.11-slim
+# Backend Dockerfile
+FROM node:20-alpine
 
 WORKDIR /app
 
-# copy only requirements first (cache-friendly)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy package files
+COPY package*.json ./
 
-# copy app code
+# Install dependencies
+RUN npm install
+
+# Copy prisma schema
+COPY prisma ./prisma/
+COPY prisma.config.ts ./
+
+# Copy source code
 COPY . .
 
-EXPOSE 8001
+# Generate Prisma Client
+RUN npx prisma generate
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+# Expose port
+EXPOSE 5000
+
+# Start the application
+CMD ["npm", "run", "dev"]
