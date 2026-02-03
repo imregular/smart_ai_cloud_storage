@@ -6,21 +6,29 @@ datasource db {
   provider = "postgresql"
 }
 
-model Url {
-  id         String    @id
-  shortCode  String    @unique
-  longUrl    String
-  createdAt  DateTime  @default(now())
-  expiresAt  DateTime?
-  clickCount Int       @default(0)
-
-  @@index([shortCode])
-}
-
 
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  images    Image[]
+}
+
+model Image {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  filename     String
+  originalName String
+  path         String
+  mimeType     String
+  size         Int
+  createdAt    DateTime @default(now())
+  aiProcessed  Boolean  @default(false)
+  analysis     String?  // JSON or text caption
+  embedding    Float[]  // Vector embedding
+  aiProcessingTime Int? // Time taken in ms
+
+  @@index([userId])
 }
